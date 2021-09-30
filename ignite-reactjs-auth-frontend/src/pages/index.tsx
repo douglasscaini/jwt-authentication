@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { FormEvent, useContext, useState } from "react";
-import { parseCookies } from "nookies";
 import { AuthContext } from "../context/AuthContext";
+import { withSSRQuest } from "../utils/withSSRGuest";
 
 import styles from "../styles/home.module.css";
 
@@ -32,19 +32,8 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookies = parseCookies(ctx);
-
-  if (cookies["nextauth.token"]) {
-    return {
-      redirect: {
-        destination: "/dashboard",
-        permanent: false,
-      },
-    };
-  }
-
+export const getServerSideProps = withSSRQuest(async (ctx) => {
   return {
     props: {},
   };
-};
+});
