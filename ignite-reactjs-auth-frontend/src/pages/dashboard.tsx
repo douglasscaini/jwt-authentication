@@ -5,6 +5,8 @@ import { setupAPIClient } from "../services/api";
 import { api } from "../services/apiClient";
 import { withSSRAuth } from "../utils/withSSRAuth";
 
+import { Flex, Text, Button, Stack, Box } from "@chakra-ui/react";
+
 export default function Dashboard() {
   const { user, signOut } = useContext(AuthContext);
 
@@ -16,15 +18,28 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <>
-      <h1>Dashboard: {user?.email}</h1>
+    <Flex w="100vw" h="100vh" align="center" justify="center">
+      <Flex as="form" w="100%" maxWidth={360} bg="gray.800" p="8" borderRadius={8} flexDir="column">
+        <Stack spacing="4">
+          <Box>
+            <Text fontSize="4xl">Dashboard</Text>
+            <Text fontSize="lg" color="gray.500">
+              {user?.email}
+            </Text>
+          </Box>
 
-      <button onClick={signOut}>Sign Out</button>
+          <Text fontSize="lg" color="gray.500">
+            <Can permissions={["metrics.list"]}>
+              <Text fontSize="lg">📕 Possui métricas </Text>
+            </Can>
+          </Text>
+        </Stack>
 
-      <Can permissions={["metrics.list"]}>
-        <div>Métricas</div>
-      </Can>
-    </>
+        <Button colorScheme="blue" mt="6" size="lg" onClick={signOut}>
+          Sign Out
+        </Button>
+      </Flex>
+    </Flex>
   );
 }
 
