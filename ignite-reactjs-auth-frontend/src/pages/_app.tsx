@@ -1,11 +1,15 @@
 import type { AppProps } from "next/app";
 import { AuthProvider } from "../context/AuthContext";
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "../styles/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <ChakraProvider theme={theme}>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
 
