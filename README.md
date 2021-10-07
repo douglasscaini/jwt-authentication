@@ -29,7 +29,7 @@
 
 ```bash
 # Em ambos os diretórios:
-$ cd backend e frontend
+$ cd backend & frontend
 
 # Instalar as dependências necessárias:
 $ yarn
